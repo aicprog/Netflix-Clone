@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import { useMoviesContext } from '../../Context/movies.context'
-import { CardPlaceholder, ImgCard } from '..';
+import {ImgCard } from '..';
 import styled from 'styled-components'
 
 
 
 const ReturnedColumns = ({ movies, getMovies, menuItemUrl = '', queryString = '', menuItemChosen='', menuName=''}) => {
 	const { currentPage, increasePage } = useMoviesContext();
-	const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
-                if (currentPage === 1) {
-                    window.scrollTo(0, 0);
-                }
+		if (currentPage === 1) {
+			window.scrollTo(0, 0);
+		}
     });
     
 	useEffect(() => {
@@ -30,26 +29,23 @@ const ReturnedColumns = ({ movies, getMovies, menuItemUrl = '', queryString = ''
 	}, []);
 
 	useEffect(() => {
+
 		//searchMovies(queryString, page);
-		if (queryString) {
-			getMovies(queryString, currentPage).then(() => {
-				setLoading(false);
-			});
+		if (queryString.length > 0) {
+			getMovies(queryString, currentPage)
+				
 		} else {
+			console.log("HELLOs")
 			getMovies(
 				`${menuItemUrl}&page=${currentPage}`,
 				menuItemChosen,
 				menuItemChosen,
 				menuName
-			).then(() => {
-				setLoading(false);
-			});
+			)
 		}
+
 	}, [currentPage, menuItemChosen]);
 
-	if(loading){
-		return <CardPlaceholder/>
-	}
 
 
 

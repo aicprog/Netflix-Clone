@@ -1,15 +1,12 @@
 import {Router, Switch, Route} from 'react-router-dom'
-import {LandingPage, SignInPage, BrowsePage } from './Pages/'
-import { history } from './Components';
+import {LandingPage, SignInPage, BrowsePage, SearchPage } from './Pages/'
+import { history, Navbar } from './Components';
 
 //paths
-import { LANDING_PAGE, BROWSE, SIGN_IN, SIGN_UP } from './constants/routes';
+import { LANDING_PAGE, BROWSE, SIGN_IN, SEARCH } from './constants/routes';
 import 'normalize.css'
 import LoadingAvatar from './Components/BrowsePage/LoadingAvatar';
 
-
-							// 	<BrowsePage newAvatarChosen={false}/>
-							// </Route>
 
 
 function App() {
@@ -23,14 +20,14 @@ function App() {
 						<Route exact path={LANDING_PAGE}>
 							<LandingPage />
 						</Route>
-
-							<Route exact path={BROWSE}><BrowsePage/></Route>
-
-
 						<Route exact path={SIGN_IN}>
 							<SignInPage />
 						</Route>
-						<Route exact path={SIGN_UP}></Route>
+							<>
+							<Navbar/>
+							<Route exact path={BROWSE}><BrowsePage/></Route>
+							<Route exact path={SEARCH}><SearchPage/></Route>
+							</>
 				</Switch>
 				</LoadingAvatar>
 			</Router>

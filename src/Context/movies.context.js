@@ -52,6 +52,7 @@ export const MoviesProvider = ({ children }) => {
 		
 		} catch (error) {
 			console.log(error);
+			toggleLoadingFalse()
 		}
 	};
 

@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import AvatarSidebar from '../BrowsePage/AvatarSidebar';
 import { useUserContext } from '../../Context/user.context';
 import {AiFillCaretDown} from 'react-icons/ai'
+import { history } from '../../Components'
 
 
 const Navbar = () => {
@@ -41,13 +42,18 @@ const Navbar = () => {
     }, [])
 
 	const handleSubmitQuery = (e) =>{
-		const query = e.target.value;
+		const currentQuery = e.target.value;
 		setCurrentIndex(null)
-		setQuery(query);
-		searchQueriedMovies(query);
+		setQuery(currentQuery);
 		
-		if (query.length <= 0) {
+		if (currentQuery.length <= 0) {
 			goHome();
+			history.push('/browse');
+		}
+		else{
+			history.push('/search');
+			searchQueriedMovies(currentQuery);
+			
 		}
 
 
@@ -72,9 +78,6 @@ const Navbar = () => {
 	}
 
 
-	// if (avatarClicked) {
-	// 	return <LoadingAvatar/>;
-	// }
 
     return (
 			<Nav showNav={showNav}>
@@ -82,45 +85,46 @@ const Navbar = () => {
 					<Link to="/browse" onClick={goHome}>
 						<img className="nav-logo" src={logo} alt="Netflix Logo" />
 					</Link>
-					<ul className="menu">
-						{headerLinks.map((headerLink, index) => (
-							<li
-								key={headerLink.id}
-								className={`${
-									currentIndex === headerLink.id ? 'disabled' : 'enabled'
-								}`}
-								onClick={() => {
-									handleMenuClick(
-										index,
-										headerLink.url,
-										headerLink.link,
-										headerLink.type
-									);
-								}}
-							>
-								{headerLink.link}
-							</li>
-						))}
-					</ul>
-					<button
-						className="browse"
-						onMouseOver={() => {
-							setToggleBrowse(true);
-						}}
-						onMouseLeave={() => {
-							setToggleBrowse(false);
-						}}
-					>
-						Browse
-						<MoviesSidebar
-							toggleBrowse={toggleBrowse}
-							handleMenuClick={handleMenuClick}
-						/>
-						<RiArrowDownSFill />
-					</button>
+					{avatarImg && <span>
+						<ul className="menu">
+							{headerLinks.map((headerLink, index) => (
+								<li
+									key={headerLink.id}
+									className={`${
+										currentIndex === headerLink.id ? 'disabled' : 'enabled'
+									}`}
+									onClick={() => {
+										handleMenuClick(
+											index,
+											headerLink.url,
+											headerLink.link,
+											headerLink.type
+										);
+									}}
+								>
+									{headerLink.link}
+								</li>
+							))}
+						</ul>
+						<button
+							className="browse"
+							onMouseOver={() => {
+								setToggleBrowse(true);
+							}}
+							onMouseLeave={() => {
+								setToggleBrowse(false);
+							}}
+						>
+							Browse
+							<MoviesSidebar
+								toggleBrowse={toggleBrowse}
+								handleMenuClick={handleMenuClick}
+							/>
+							<RiArrowDownSFill />
+						</button>
+					</span>}
 				</WrapperLeft>
-
-				<WrapperRight togglesearch={toggleSearch}>
+				{avatarImg && <WrapperRight togglesearch={toggleSearch}>
 					<ImSearch
 						onClick={() => {
 							setToggleSearch((prevState) => {
@@ -150,7 +154,7 @@ const Navbar = () => {
 						/>
 						<DownIcon className="updown-icon" />
 					</button>
-				</WrapperRight>
+				</WrapperRight>}
 			</Nav>
 		);
 

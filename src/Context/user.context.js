@@ -1,5 +1,5 @@
-import React, {createContext, useEffect, useState, useContext, useReducer} from 'react'
-import { useFirebaseAuthProvider } from './auth.context';
+import React, {createContext, useContext, useReducer} from 'react'
+
 import reducer from '../Reducer/user.reducer'
 import { avatarData } from '../constants/avatarData';
 //create context 
@@ -14,13 +14,10 @@ const initialState ={
 //provider 
 export const UserProvider = ({ children }) => {
 	//get info from auth provider
-	const { user, signInUser, signOutUser } = useFirebaseAuthProvider();
-	const [state, dispatch] = useReducer(reducer, initialState)
-	const [currentUser, setCurrentUser] = useState(null);
 
-	useEffect(() => {
-		setCurrentUser(user);
-	}, [currentUser]);
+	const [state, dispatch] = useReducer(reducer, initialState)
+
+
 
 	const setUserAvatar = (avatar) =>{
 		dispatch({ type: 'SET_USER_AVATAR', payload: avatar });
@@ -37,9 +34,7 @@ export const UserProvider = ({ children }) => {
 		<UserContext.Provider
 			value={{
 				...state,
-				currentUser,
-				signInUser,
-				signOutUser,
+
 				setUserAvatar,
 				removeUserAvatar,
 				toggleNewAvatarChosen,

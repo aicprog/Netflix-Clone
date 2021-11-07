@@ -3,7 +3,6 @@ import {
 	Content,
 	Footer,
 	ReturnedColumns,
-	Navbar,
 	Banner,
 	CardPlaceholder,
 	AvatarContent,
@@ -11,7 +10,6 @@ import {
 import LANDING_PAGE_DATA from '../fixtures/landingFooterData.json'
 import styled from 'styled-components/macro'
 import { useMoviesContext } from '../Context/movies.context';
-import logo from '../assets/logo.svg'
 import { useUserContext } from '../Context/user.context';
 
 
@@ -22,21 +20,18 @@ const BrowsePage = () => {
 	const { newAvatar } = useUserContext();
 
 
-
-	
-
+	//choosing an avatar
 	if (!chooseAvatar && !newAvatar.changeOccurred) {
-
 		return (
 			<AvatarWrapper>
-				<img className="nav-logo" src={logo} alt="Netflix Logo" />
+				{/* <img className="nav-logo" src={logo} alt="Netflix Logo" /> */}
 				<AvatarContent setChooseAvatar={setChooseAvatar} />
 			</AvatarWrapper>
 		);
 	}
+
 	return (
 		<span>
-			<Navbar />
 			<InnerContent />
 		</span>
 	);
@@ -50,9 +45,6 @@ const InnerContent = () =>{
 
 
 	const {
-		queriedMovies,
-		queryString,
-		searchQueriedMovies,
 		menuItemChosen: {type, name},
 		[type]: menuItemMovies,
 		menuItemUrl,
@@ -62,21 +54,6 @@ const InnerContent = () =>{
 
 
 
-
-	//if a query is made
-	if (queryString.length > 0) {
-		return (
-			<QueryWrapper>
-				<h1>Results for <span className="query">{queryString}</span></h1>
-				<ReturnedColumns
-					movies={queriedMovies}
-					getMovies={searchQueriedMovies}
-					queryString={queryString}
-					currentPage={currentPage}
-				/>
-			</QueryWrapper>
-		);
-	}
 
 	//if a menu item is clicked on
 	if(type.length > 0){
@@ -109,6 +86,10 @@ const InnerContent = () =>{
 export default BrowsePage
 
 const AvatarWrapper = styled.div`
+	background-color: blac;
+	width: 100vw;
+	height: 100vh;
+	z-index: 200000000000000000000000000000;
 	padding: 2rem;
 	.nav-logo {
 		/* object-fit: cover; */
@@ -127,20 +108,7 @@ const Wrapper = styled.div`
 	position: relative;
 	overflow-y: hidden;
 `;
-const QueryWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
 
-	h1 {
-		padding: 6rem 0rem 0rem 4rem;
-		margin-bottom: -4rem;
-		color: rgba(255, 255, 255, 1);
-
-		.query {
-			color: rgba(255, 255, 255, 0.8);
-		}
-	}
-`;
 const MenuWrapper = styled.div`
 	display: flex;
 	flex-direction: column;

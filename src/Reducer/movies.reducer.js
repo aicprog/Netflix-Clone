@@ -17,6 +17,7 @@ const movies_reducer = (state, action) =>{
 						},
 						menuItemUrl: action.payload.url,
 						currentPage: 1,
+						dataLoading: false,
 					};
 				}
 				const type = `${action.payload.type}`;
@@ -30,6 +31,7 @@ const movies_reducer = (state, action) =>{
 						name: action.payload.menuName,
 					},
 					menuItemUrl: action.payload.url,
+					dataLoading: false,
 				};
 			case 'SET_QUERY':
 				return { ...state, queryString: action.payload, menuItemChosen: false };
@@ -67,12 +69,14 @@ const movies_reducer = (state, action) =>{
 						...state,
 						queriedMovies: action.payload.movies,
 						queryString: action.payload.query,
+						dataLoading: false,
 					};
 				}
 				return {
 					...state,
 					queriedMovies: [...state.queriedMovies, ...action.payload.movies],
 					queryString: action.payload.query,
+					dataLoading: false,
 				};
 			case 'RESET_QUERIED_MOVIES':
 				return {
