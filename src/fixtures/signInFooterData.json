@@ -1,0 +1,51 @@
+[{
+			"id": 1,
+			"data": [
+				{
+					"id": 1,
+					"name": "FAQ",
+					"href": "#"
+				},
+				{
+					"id": 2,
+					"name": "Cookie Preferences",
+					"href": "#"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"data": [
+				{
+					"id": 1,
+					"name": "Help Center",
+					"href": "#"
+				},
+				{
+					"id": 2,
+					"name": "Corporate Information",
+					"href": "#"
+				}
+			]
+		},
+		{
+			"id": 3,
+			"data": [
+				{
+					"id": 1,
+					"name": "Terms of Use",
+					"href": "#"
+				}
+			]
+		},
+		{
+			"id": 4,
+			"data": [
+				{
+					"id": 1,
+					"name": "Privacy",
+					"href": "#"
+				}
+			]
+		}
+]
