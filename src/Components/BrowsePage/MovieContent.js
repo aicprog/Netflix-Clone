@@ -1,42 +1,39 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import { useMoviesContext } from '../../Context/movies.context';
 import { base_img_url } from '../../Requests/requests';
-import {MdOutlineClose} from 'react-icons/md'
+import { MdOutlineClose } from 'react-icons/md';
 
 const MovieContent = () => {
 	const { location, movieChosen, closeMovieContent } = useMoviesContext();
-	const container = useRef(null)
+	const container = useRef(null);
 
 	useEffect(() => {
-
-		const {y} = location
+		const { y } = location;
 		container.current.style.top = `${y}px`;
-		const scrollTo = y - 300
+		const scrollTo = y - 300;
 		window.scrollTo({ top: scrollTo, behavior: 'smooth' });
-		
-		
-	}, [location, movieChosen])
-	
-    return (
-			<Content ref={container}>
-				<Background background={`${base_img_url}${movieChosen.backdrop_path}`}>
-					<div className="left"></div>
-					<div className="right"></div>
-				</Background>
-				<ContentContainer className="content-container">
-					<InnerContent>
-						<h1>{movieChosen.title ? movieChosen.title : movieChosen.name}</h1>
-						<p>{movieChosen.overview}</p>
-						<CloseIcon onClick={closeMovieContent} />
-						<PlayButton>Play</PlayButton>
-					</InnerContent>
-				</ContentContainer>
-			</Content>
-		);
-}
+	}, [location, movieChosen]);
 
-export default MovieContent
+	return (
+		<Content ref={container}>
+			<Background background={`${base_img_url}${movieChosen.backdrop_path}`}>
+				<div className="left"></div>
+				<div className="right"></div>
+			</Background>
+			<ContentContainer className="content-container">
+				<InnerContent>
+					<h1>{movieChosen.title ? movieChosen.title : movieChosen.name}</h1>
+					<p>{movieChosen.overview.substring(0, 150)}</p>
+					<CloseIcon onClick={closeMovieContent} />
+					<PlayButton>Play</PlayButton>
+				</InnerContent>
+			</ContentContainer>
+		</Content>
+	);
+};
+
+export default MovieContent;
 
 const Content = styled.div`
 	//margin-top: 40px;
@@ -95,13 +92,27 @@ const InnerContent = styled.div`
 	width: 30%;
 
 	h1 {
-		font-size: 3.5rem;
+		font-size: 3rem;
 	}
 
 	p {
 		line-height: 1.6rem;
 		color: rgba(255, 255, 255, 0.6);
 		margin-top: 2.5em;
+	}
+
+	@media (max-width: 650px) {
+		width: 60%;
+		margin-left: 1.5rem;
+		h1 {
+			font-size: 1.5rem;
+		}
+
+		p {
+			line-height: 1.4rem;
+			color: rgba(255, 255, 255, 0.6);
+			margin-top: 2.5em;
+		}
 	}
 `;
 
@@ -111,7 +122,7 @@ const CloseIcon = styled(MdOutlineClose)`
 	top: 2rem;
 	font-size: 2rem;
 	cursor: pointer;
-`
+`;
 
 const PlayButton = styled.button`
 	cursor: pointer;
@@ -137,5 +148,3 @@ const PlayButton = styled.button`
 		padding: 1rem;
 	}
 `;
-
-
