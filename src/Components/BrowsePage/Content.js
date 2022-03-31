@@ -22,12 +22,6 @@ const Content = () => {
 			closeMovieContent();
 			setIndex(id);
 		}
-
-
-
-
-		//setIndex(id)
-		
 	}
     return (
 			<Wrapper>

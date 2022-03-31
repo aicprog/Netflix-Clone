@@ -1,12 +1,10 @@
-import React from 'react'
-import styled from 'styled-components/macro'
+import React from 'react';
+import styled from 'styled-components/macro';
 
 const CardPlaceholder = () => {
-
 	const [amount, setAmount] = React.useState(6);
 
 	const checkWindow = () => {
-	
 		if (window.innerWidth < 1600) {
 			setAmount(4);
 		}
@@ -20,27 +18,30 @@ const CardPlaceholder = () => {
 		}
 	};
 
-	const array = Array.from(Array(amount).keys());
-
 	React.useEffect(() => {
-		checkWindow()
-	}, [])
+		checkWindow();
+	}, []);
 
-    return (
-			<CardPlaceholderWrapper>
-				{array.map((index) => (
-					<Card key={index}></Card>
-				))}
-			</CardPlaceholderWrapper>
-		);
-}
+	return (
+		<CardPlaceholderWrapper>
+			{Array(amount)
+				.fill(amount)
+				.map((card, index) => {
+					return (
+						<Card>
+							<div className="product-card-loader-inner"></div>
+						</Card>
+					);
+				})}
+		</CardPlaceholderWrapper>
+	);
+};
 
-export default CardPlaceholder
+export default CardPlaceholder;
 
 const CardPlaceholderWrapper = styled.div`
 	display: flex;
 	padding: 15rem 3rem;
-
 
 	@keyframes colorChanger {
 		from {
@@ -52,15 +53,20 @@ const CardPlaceholderWrapper = styled.div`
 	}
 `;
 const Card = styled.div`
-	background-color: #252525;
-	border-radius: 0.5rem;
-	height: 250px;
-	width: 250px;
-	margin-right: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 10px 10px;
+	padding: 20px 0;
+	width: 100%;
+	min-width: 130px;
+	background-color: rgba(0, 0, 0, 0.1);
+	z-index: 1;
+	height: 400px;
 	animation: colorChanger 0.8s infinite;
 	animation-fill-mode: both;
-    transition: all ease-in-out;
-
+	transition: all ease-in-out;
 
 	&:nth-child(1) {
 		animation-delay: 0.1s;

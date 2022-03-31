@@ -49,7 +49,7 @@ export const MoviesProvider = ({ children }) => {
 			const movies = response.data.results;
 			
 			dispatch({ type: 'FETCH_MOVIES', payload: { type, movies, url, menuType, menuName }});
-		
+			
 		} catch (error) {
 			console.log(error);
 			toggleLoadingFalse()
@@ -58,6 +58,7 @@ export const MoviesProvider = ({ children }) => {
 
 
 	const searchQueriedMovies = async (query, page = 1) => {
+		toggleLoadingTrue();
 		closeMovieContent()
 		if (query.length > 0) {
 			const complete_query = `${search_url}${query}&page=${page}`;
@@ -66,7 +67,7 @@ export const MoviesProvider = ({ children }) => {
 				const response = await axios.get(complete_query);
 				const movies = response.data.results;
 				dispatch({ type: 'SEARCH_MOVIES', payload: { query, movies } });
-
+		
 				//dispatch({ type: 'SET_QUERY', payload: query });
 			} catch (error) {
 				console.log(error);

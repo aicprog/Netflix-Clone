@@ -6,7 +6,7 @@ import { history, Navbar } from './Components';
 import { LANDING_PAGE, BROWSE, SIGN_IN, SEARCH } from './constants/routes';
 import 'normalize.css'
 import LoadingAvatar from './Components/BrowsePage/LoadingAvatar';
-
+import './App.css'
 
 
 function App() {

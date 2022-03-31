@@ -56,16 +56,9 @@ const CarouselSlider = ({movies, isLargeRow}) => {
 	};
 
 	const handleMovieClick = (e, movie) =>{
-		//setTimeout(() => {
 			setMovieForMovieContent(movie)
 			getPageOffset(e);
 
-
-			//console.log(e.currentTarget.parentElement)
-
-			
-		//}, 1000);
-		
 	}
 
 		function getPageOffset(e) {
@@ -78,7 +71,6 @@ const CarouselSlider = ({movies, isLargeRow}) => {
 					e.target.getBoundingClientRect().height +
 					20 +
 					scrollY;
-				console.log('Y', y);
 				setMovieContentCoordinates({ y });
 				openMovieContent();
 			}, 100);

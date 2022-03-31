@@ -35,7 +35,6 @@ const ReturnedColumns = ({ movies, getMovies, menuItemUrl = '', queryString = ''
 			getMovies(queryString, currentPage)
 				
 		} else {
-			console.log("HELLOs")
 			getMovies(
 				`${menuItemUrl}&page=${currentPage}`,
 				menuItemChosen,

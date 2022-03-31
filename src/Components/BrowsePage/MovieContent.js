@@ -10,9 +10,8 @@ const MovieContent = () => {
 
 	useEffect(() => {
 
-		const movieContent = container.current
 		const {y} = location
-		movieContent.style.top = `${y}px`;
+		container.current.style.top = `${y}px`;
 		const scrollTo = y - 300
 		window.scrollTo({ top: scrollTo, behavior: 'smooth' });
 		

@@ -34,7 +34,12 @@ const movies_reducer = (state, action) =>{
 					dataLoading: false,
 				};
 			case 'SET_QUERY':
-				return { ...state, queryString: action.payload, menuItemChosen: false };
+				return {
+					...state,
+					queryString: action.payload,
+					menuItemChosen: false,
+					dataLoading: false,
+				};
 			case 'SET_MENU_ITEM':
 				return {
 					...state,
@@ -43,11 +48,13 @@ const movies_reducer = (state, action) =>{
 						name: action.payload.menuName,
 					},
 					menuItemUrl: action.payload.url,
+					dataLoading: false,
 				};
 			case 'INCREASE_PAGE':
 				return {
 					...state,
 					currentPage: state.currentPage + 1,
+					dataLoading: false,
 				};
 			case 'MENU_ITEM_CHECK':
 				if (action.payload.type !== state.menuItemChosen.type) {
@@ -58,6 +65,7 @@ const movies_reducer = (state, action) =>{
 						originals: [],
 						popular: [],
 						currentPage: 1,
+						dataLoading: false,
 					};
 				}
 				return {
@@ -83,17 +91,20 @@ const movies_reducer = (state, action) =>{
 					...state,
 					queryString: '',
 					queriedMovies: [],
+					dataLoading: false,
 				};
 			case 'RESET_MENU_MOVIES':
 				return {
 					...state,
 					menuItemChosen: { name: '', type: '' },
 					menuItemUrl: '',
+					dataLoading: false,
 				};
 			case 'SET_MOVIE_FOR_MOVIE_CONTENT':
 				return {
 					...state,
 					movieChosen: action.payload,
+					dataLoading: false,
 				};
 
 			default:
