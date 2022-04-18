@@ -26,11 +26,6 @@ const Row = ({ title, type, fetchUrl, isLargeRow }) => {
 	return (
 		<RowContainer>
 			<Title>{title}</Title>
-			{/* {dataLoading ? (
-				<CardPlaceholder />
-			) : (
-				<CarouselSlider movies={movies} isLargeRow={isLargeRow} />
-			)} */}
 			<CarouselSlider movies={movies} isLargeRow={isLargeRow} />
 		</RowContainer>
 	);

@@ -1,30 +1,42 @@
-import React, {useRef, useState} from 'react'
-import styled from 'styled-components'
+import React, { useRef, useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { ImgCard } from '../../Components';
 import { useMoviesContext } from '../../Context/movies.context';
 
 const scrollByValue = 500;
 
-const CarouselSlider = ({movies, isLargeRow}) => {
-	
-	const [scrollPosition, setScrollPosition] = useState(0)
-	const [padding, setPadding] = useState(true)
+const CarouselSlider = ({ movies, isLargeRow }) => {
+	const [scrollPosition, setScrollPosition] = useState(0);
+	const [padding, setPadding] = useState(true);
+	const [deviceWidth, changeDeviceWidth] = useState(window.innerWidth);
+	const listRef = useRef(null);
+	const movieRef = useRef(null);
 
+	useEffect(() => {
+		const handleResize = () => changeDeviceWidth(window.innerWidth);
+
+		// if (isMovieContentOpen) {
+		// 	getPageOffset()
+		// }
+		window.addEventListener('resize', handleResize);
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [deviceWidth]);
 
 	const {
 		setMovieForMovieContent,
 		openMovieContent,
 		setMovieContentCoordinates,
+		isMovieContentOpen,
 	} = useMoviesContext();
-
-    const listRef = useRef(null);
 
 	const scrollLeft = (e) => {
 		// console.log(listRef.current.scrollLeft)
 		// listRef.current.scrollLeft === 0 ? setAtZero(true): setAtZero(false)
 
-		//scrollByValue is off by 500 because it is a range from 0-500 and you can't scroll left anymore when you are at 500. So when you start scrolling left, you want to make sure you reset the scrollPosition as soon as it reaches that 0-500 range, or when the value <=500. 
+		//scrollByValue is off by 500 because it is a range from 0-500 and you can't scroll left anymore when you are at 500. So when you start scrolling left, you want to make sure you reset the scrollPosition as soon as it reaches that 0-500 range, or when the value <=500.
 		if (listRef.current.scrollLeft <= scrollByValue) {
 			setScrollPosition(0);
 		}
@@ -37,13 +49,13 @@ const CarouselSlider = ({movies, isLargeRow}) => {
 		}
 	};
 	const scrollRight = () => {
-		setPadding(false)
-		//every time you scroll right, you set a new scrollPosition 
+		setPadding(false);
+		//every time you scroll right, you set a new scrollPosition
 		setScrollPosition(listRef.current.scrollLeft);
 
-		//Since it is in the range 0-500, this ensures that once you scroll by once, it meets condition in styled components and the left button shows. 
-		if(scrollPosition === 0){
-			setScrollPosition(2)
+		//Since it is in the range 0-500, this ensures that once you scroll by once, it meets condition in styled components and the left button shows.
+		if (scrollPosition === 0) {
+			setScrollPosition(2);
 		}
 
 		if (listRef.current) {
@@ -55,61 +67,63 @@ const CarouselSlider = ({movies, isLargeRow}) => {
 		}
 	};
 
-	const handleMovieClick = (e, movie) =>{
-			setMovieForMovieContent(movie)
-			getPageOffset(e);
+	const handleMovieClick = (e, movie) => {
+		setMovieForMovieContent(movie);
+		getPageOffset(e);
+	};
 
+	function getPageOffset(e) {
+		//Makes sure the previous movie content is closed so the new y coordinates are accurate.
+		setTimeout(() => {
+			const { scrollY } = window;
+
+			let y =
+				e.target.getBoundingClientRect().top +
+				e.target.getBoundingClientRect().height +
+				20 +
+				scrollY;
+
+			setMovieContentCoordinates({ y });
+			openMovieContent();
+		}, 100);
 	}
 
-		function getPageOffset(e) {
+	return (
+		<SlideContainer
+			scrollPosition={scrollPosition}
+			padding={padding}
+			ref={movieRef}
+		>
+			<LeftArrow onClick={scrollLeft} className="left-arrow" />
+			<MoviesContainer ref={listRef}>
+				{movies.map((movie) => {
+					if (movie.poster_path === null || movie.backdrop_path === null) {
+						return <span key={movie.id}></span>;
+					}
+					return (
+						<ImageContainer
+							key={movie.id}
+							// onClick={(e) => handleMovieClick(e, movie)}
+							onClick={(e) => handleMovieClick(e, movie)}
+						>
+							<ImgCard isLargeRow={isLargeRow} movie={movie} />
+						</ImageContainer>
+					);
+				})}
+			</MoviesContainer>
+			<RightArrow onClick={scrollRight} className="right-arrow" />
+		</SlideContainer>
+	);
+};
 
-			//Makes sure the previous movie content is closed so the new y coordinates are accurate.
-			setTimeout(() => {
-				const { scrollY } = window;
-				const y =
-					e.target.getBoundingClientRect().top +
-					e.target.getBoundingClientRect().height +
-					20 +
-					scrollY;
-				setMovieContentCoordinates({ y });
-				openMovieContent();
-			}, 100);
-		}
-
-
-    return (
-			<SlideContainer scrollPosition={scrollPosition} padding={padding}>
-				<LeftArrow onClick={scrollLeft} className="left-arrow" />
-				<MoviesContainer ref={listRef}>
-					{movies.map((movie) => {
-						if (movie.poster_path === null || movie.backdrop_path === null) {
-							return <span key={movie.id}></span>;
-						}
-						return (
-							<ImageContainer
-								key={movie.id}
-								onClick={(e) => handleMovieClick(e, movie)}
-							>
-								<ImgCard isLargeRow={isLargeRow} movie={movie} />
-							</ImageContainer>
-						);
-					})}
-				</MoviesContainer>
-				<RightArrow onClick={scrollRight} className="right-arrow" />
-			</SlideContainer>
-		);
-}
-
-export default CarouselSlider
-
-
+export default CarouselSlider;
 
 const SlideContainer = styled.div`
 	display: flex;
 	align-items: center;
 	overflow-y: auto;
 	position: relative;
-	padding-left: ${({ padding }) => (padding) ? "60px": "0rem"};
+	padding-left: ${({ padding }) => (padding ? '60px' : '0rem')};
 
 	:hover img {
 		transform: translateX(-7%);
@@ -167,8 +181,6 @@ const MoviesContainer = styled.div`
 			transform: scale(1.2);
 		}
 	}
-
-
 `;
 
 const ImageContainer = styled.div`
@@ -184,7 +196,6 @@ const ImageContainer = styled.div`
 		transform: scale(1.1) !important;
 		//transform: scale(1.08);
 	}
-
 `;
 
 // const Img = styled.img`

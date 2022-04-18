@@ -57,58 +57,19 @@ const BrowsePage = () => {
 
 	return (
 		<Wrapper ref={innerRef}>
-			{dataLoading ? <CardPlaceholder amount={1} /> : <Banner />}
-			<Content />
-			<Footer footerData={LANDING_PAGE_DATA} />
+
+				{dataLoading ? <CardPlaceholder amount={1} /> : <Banner />}
+				<Content />
+				<Footer footerData={LANDING_PAGE_DATA} />
+		
 		</Wrapper>
 	);
 };
 
-// const InnerContent = () => {
-// 	const innerRef = React.useRef(null);
-
-// 	const {
-// 		menuItemChosen: { type, name },
-// 		[type]: menuItemMovies,
-// 		menuItemUrl,
-// 		fetchMovies,
-// 		currentPage,
-// 		dataLoading,
-// 	} = useMoviesContext();
-
-// 	// if a menu item is clicked on
-// 	if (type.length > 0) {
-// 		return (
-// 			<MenuWrapper>
-// 				<h1>
-// 					<span className="menu">{name}</span>
-// 				</h1>
-
-// 				<ReturnedColumns
-// 					movies={menuItemMovies}
-// 					getMovies={fetchMovies}
-// 					menuItemUrl={menuItemUrl}
-// 					menuItemChosen={type}
-// 					currentPage={currentPage}
-// 					menuName={name}
-// 				/>
-// 			</MenuWrapper>
-// 		);
-// 	}
-
-// 	return (
-// 		<Wrapper ref={innerRef}>
-// 			{dataLoading ? <CardPlaceholder /> : <Banner />}
-// 			<Content />
-// 			<Footer footerData={LANDING_PAGE_DATA} />
-// 		</Wrapper>
-// 	);
-// };
-
 export default BrowsePage;
 
 const AvatarWrapper = styled.div`
-	background-color: blac;
+	background-color: black;
 	width: 100vw;
 	height: 100vh;
 	z-index: 200000000000000000000000000000;
@@ -116,9 +77,9 @@ const AvatarWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-	position: relative;
 	overflow-y: hidden;
 `;
+
 
 const MenuWrapper = styled.div`
 	display: flex;

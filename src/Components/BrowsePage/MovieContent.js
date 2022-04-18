@@ -1,16 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useMoviesContext } from '../../Context/movies.context';
 import { base_img_url } from '../../Requests/requests';
 import { MdOutlineClose } from 'react-icons/md';
 
-const MovieContent = () => {
+const MovieContent = ({ containerRef }) => {
 	const { location, movieChosen, closeMovieContent } = useMoviesContext();
 	const container = useRef(null);
 
 	useEffect(() => {
 		const { y } = location;
+		
 		container.current.style.top = `${y}px`;
+
 		const scrollTo = y - 300;
 		window.scrollTo({ top: scrollTo, behavior: 'smooth' });
 	}, [location, movieChosen]);
@@ -38,7 +40,7 @@ export default MovieContent;
 const Content = styled.div`
 	//margin-top: 40px;
 	height: 548px;
-	width: 100%;
+	width: 100vw;
 	left: 0;
 	right: 0;
 	position: absolute;
