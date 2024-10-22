@@ -20,6 +20,7 @@ const LoadingAvatar = ({children}) => {
 					toggleNewAvatarChosen('chosen', false);
 				}, 1000);
 			}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [newAvatar.chosen]);
 
     if(newAvatar.chosen){

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import { useMoviesContext } from '../../Context/movies.context';
 import { base_img_url } from '../../Requests/requests';

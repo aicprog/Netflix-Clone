@@ -1,30 +1,26 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Row } from '../../Components';
-import { useMoviesContext } from '../../Context/movies.context';
+// import { useMoviesContext } from '../../Context/movies.context';
 import { urlRequests } from '../../Requests/requests';
-import MovieContent from './MovieContent';
 
 const Content = () => {
 	const sections = Object.keys(urlRequests[0]);
-	const { isMovieContentOpen, closeMovieContent } = useMoviesContext();
-	const [index, setIndex] = React.useState(-1);
+	// const {closeMovieContent } = useMoviesContext();
+	// const [index, setIndex] = React.useState(-1);
 	const wrapperRef = useRef(null);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log('content', wrapperRef.current.getBoundingClientRect());
-	// });
 
-	const handleClick = (e, id) => {
-		if (index !== id) {
-			closeMovieContent();
-			setIndex(id);
-		}
-	};
+	// const handleClick = (e, id) => {
+	// 	if (index !== id) {
+	// 		closeMovieContent();
+	// 		setIndex(id);
+	// 	}
+	// };
 	return (
 		<Wrapper ref={wrapperRef}>
 			{sections.map((section) => {

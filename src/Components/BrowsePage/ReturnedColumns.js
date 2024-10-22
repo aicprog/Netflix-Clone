@@ -43,6 +43,7 @@ const ReturnedColumns = ({ movies, getMovies, menuItemUrl = '', queryString = ''
 			)
 		}
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPage, menuItemChosen]);
 
 

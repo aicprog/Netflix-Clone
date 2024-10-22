@@ -17,6 +17,7 @@ const Row = ({ title, type, fetchUrl, isLargeRow }) => {
 		// .then(() => {
 		// 	toggleLoadingFalse();
 		// });
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchUrl]);
 
 	if (dataLoading || movies.length === 0) {

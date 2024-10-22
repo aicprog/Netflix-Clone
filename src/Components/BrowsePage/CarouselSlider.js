@@ -16,9 +16,6 @@ const CarouselSlider = ({ movies, isLargeRow }) => {
 	useEffect(() => {
 		const handleResize = () => changeDeviceWidth(window.innerWidth);
 
-		// if (isMovieContentOpen) {
-		// 	getPageOffset()
-		// }
 		window.addEventListener('resize', handleResize);
 		return () => {
 			window.removeEventListener('resize', handleResize);
@@ -29,7 +26,6 @@ const CarouselSlider = ({ movies, isLargeRow }) => {
 		setMovieForMovieContent,
 		openMovieContent,
 		setMovieContentCoordinates,
-		isMovieContentOpen,
 	} = useMoviesContext();
 
 	const scrollLeft = (e) => {
