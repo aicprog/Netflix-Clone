@@ -950,7 +950,7 @@
     "@babel/helper-create-regexp-features-plugin" "^7.25.7"
     "@babel/helper-plugin-utils" "^7.25.7"
 
-"@babel/preset-env@^7.12.1", "@babel/preset-env@^7.16.4", "@babel/preset-env@^7.8.4":
+"@babel/preset-env@^7.12.1", "@babel/preset-env@^7.16.4", "@babel/preset-env@^7.25.8", "@babel/preset-env@^7.8.4":
   version "7.25.8"
   resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.25.8.tgz"
   integrity sha512-58T2yulDHMN8YMUxiLq5YmWUnlDCyY1FsHM+v12VMx+1/FlrUj5tY50iDCpofFQEM8fMYOaY9YRvym2jcjn1Dg==
@@ -1033,7 +1033,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-react@^7.12.5", "@babel/preset-react@^7.16.0":
+"@babel/preset-react@^7.12.5", "@babel/preset-react@^7.16.0", "@babel/preset-react@^7.25.7":
   version "7.25.7"
   resolved "https://registry.npmjs.org/@babel/preset-react/-/preset-react-7.25.7.tgz"
   integrity sha512-GjV0/mUEEXpi1U5ZgDprMRRgajGMRW3G5FjMr5KLKD8nT2fTG8+h/klV3+6Dm5739QE+K5+2e91qFKAYI3pmRg==
